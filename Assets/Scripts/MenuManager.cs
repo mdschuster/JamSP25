@@ -24,12 +24,27 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class MenuManager : MonoBehaviour
 {
 
     public GameObject GameName;
     public GameObject Instructions;
+    
+    [Header("Input")]
+    public InputActionReference playAction;
+    
+    private void OnEnable()
+    {
+        playAction.action.Enable();
+    }
+
+    private void OnDisable()
+    {
+        playAction.action.Disable();
+    }
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -41,7 +56,7 @@ public class MenuManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (playAction.action.WasPressedThisFrame())
         {
             SceneManager.LoadScene("MainGame");
         }

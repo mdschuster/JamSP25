@@ -21,7 +21,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 using System;
 using UnityEngine;
-using UnityEditor;
+using UnityEngine.InputSystem;
 
 
 [RequireComponent(typeof(Rigidbody))]
@@ -33,6 +33,7 @@ public class Player : MonoBehaviour
     private bool didWin = false;
 
     [Header("Movement Properties")]
+    public InputActionReference moveAction;
     public float forwardSpeed;
     public float sideSpeed;
     public float rotationSpeed;
@@ -55,18 +56,36 @@ public class Player : MonoBehaviour
     public GameObject graphic;
     public GameObject winPosition;
 
+    void OnEnable()
+    {
+        moveAction.action.Enable();
+    }
+    
+    void OnDisable()
+    {
+        moveAction.action.Disable();
+    }
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        
         reset();
     }
 
     // Update is called once per frame
     void Update()
     {
+
+    }
+
+    private void FixedUpdate()
+    {
+        
         if (death || disableControls) return;
-        float sideInput = Input.GetAxisRaw("Horizontal");
+        //float sideInput = Input.GetAxisRaw("Horizontal");
+        float sideInput = moveAction.action.ReadValue<Vector2>().x;
         movement.x=sideInput*sideSpeed*speedMultiplier;
         movement.y = 0.0f;
         movement.z = forwardSpeed*speedMultiplier;
@@ -74,10 +93,7 @@ public class Player : MonoBehaviour
         if (sideInput < 0) RotateTowardsMax(1);
         else if (sideInput > 0) RotateTowardsMax(-1);
         else  RotateBackToZero();
-    }
-
-    private void FixedUpdate()
-    {
+        
         rb.linearVelocity = movement;
     }
     
@@ -115,6 +131,7 @@ public class Player : MonoBehaviour
             forwardSpeed = 0f;
             death = true;
             movement = Vector3.zero;
+            rb.linearVelocity = Vector3.zero;
             this.graphic.SetActive(false);
             this.GetComponent<Collider>().enabled = false;
             GameManager.Instance().playerDeath();
@@ -132,11 +149,16 @@ public class Player : MonoBehaviour
         death = false;
         forwardSpeed = 50f;
         this.graphic.SetActive(true);
-        this.GetComponent<Collider>().enabled = true;
+        foreach(Collider c in GetComponents<Collider> ())
+        {
+            c.enabled = true;
+        }
         speedMultiplier = 1f;
         engineIntensity = 1f;
         disableControls = false;
         didWin = false;
+        currentRotation = 0f;
+        transform.rotation = Quaternion.Euler(0, 0, 0);
         graphic.GetComponent<MeshRenderer>().materials[2].SetColor("_Color", engineColor*Mathf.Pow(2,engineIntensity));
         
     }

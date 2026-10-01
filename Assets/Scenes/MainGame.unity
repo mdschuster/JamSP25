@@ -142262,6 +142262,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 404e8e78c99554cfea9bd95aaab1ce54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveAction: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   forwardSpeed: 25
   sideSpeed: 15
   rotationSpeed: 100
@@ -299277,6 +299278,8 @@ MonoBehaviour:
   winRestartText: {fileID: 1482367632}
   CinemachineCameraObject: {fileID: 1101207006}
   TutorialSound: {fileID: 5446259524034299887, guid: 496fd517747c14f488997f83865d69a1, type: 3}
+  restartAction: {fileID: -1330389764660659313, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  menuAction: {fileID: 4139171855997268702, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   playing: 0
   alive: 0
 --- !u!4 &1379745179

@@ -26,6 +26,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
@@ -68,10 +69,27 @@ public class GameManager : MonoBehaviour
     [Header("Sound")]
     public GameObject TutorialSound;
     
+    [Header("Input")]
+    public InputActionReference restartAction;
+    public InputActionReference menuAction;
+    
     
     public bool playing;
     public bool alive;
 
+    
+    private void OnEnable()
+    {
+        restartAction.action.Enable();
+        menuAction.action.Enable();
+    }
+
+    private void OnDisable()
+    {
+        restartAction.action.Disable();
+        menuAction.action.Disable();
+    }
+    
     private void Start()
     {
         reset();
@@ -81,12 +99,12 @@ public class GameManager : MonoBehaviour
     {
         if (!alive || player.getWin())
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (menuAction.action.WasPressedThisFrame())
             {
                 SceneManager.LoadScene("Menu");
             }
 
-            if (Input.GetKeyDown(KeyCode.R))
+            if (restartAction.action.WasPressedThisFrame())
             {
                 SceneManager.LoadScene("MainGame");
             }

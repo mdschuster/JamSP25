@@ -11244,6 +11244,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GameName: {fileID: 1244519024}
   Instructions: {fileID: 1952840020}
+  playAction: {fileID: -1616191435857685283, guid: 052faaac586de48259a63d0c4782560b, type: 3}
 --- !u!1001 &134451670
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -129681,6 +129682,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 404e8e78c99554cfea9bd95aaab1ce54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveAction: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   forwardSpeed: 25
   sideSpeed: 15
   rotationSpeed: 100
@@ -129689,6 +129691,7 @@ MonoBehaviour:
   multiplierAmount: 0.2
   disableControls: 0
   deathEffect: {fileID: 3683612536071088880, guid: caac9b19e9991441dace3abcc4b87c20, type: 3}
+  deathSound: {fileID: 0}
   engineColor: {r: 0.7490196, g: 0.07450981, b: 0.7137255, a: 0}
   engineIntensity: 6
   playerCamera: {fileID: 0}
