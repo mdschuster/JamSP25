@@ -27,6 +27,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Utilities;
 
 public class GameManager : MonoBehaviour
 {
@@ -45,6 +46,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(this);
         }
+        
     }
 
     public static GameManager Instance()
@@ -61,6 +63,7 @@ public class GameManager : MonoBehaviour
     public GameObject returnToMenu;
     public GameObject winText;
     public GameObject winRestartText;
+    public GameObject DemoText;
     private int currentPip;
     
     [Header("Camera")]
@@ -72,31 +75,44 @@ public class GameManager : MonoBehaviour
     [Header("Input")]
     public InputActionReference restartAction;
     public InputActionReference menuAction;
-    
+    private System.IDisposable anyButtonListener;
     
     public bool playing;
     public bool alive;
-
     
     private void OnEnable()
     {
         restartAction.action.Enable();
         menuAction.action.Enable();
+        if (Demo.active)
+        {
+            anyButtonListener = InputSystem.onAnyButtonPress.Call(_ => SceneManager.LoadScene("Menu"));
+        }
     }
 
     private void OnDisable()
     {
         restartAction.action.Disable();
         menuAction.action.Disable();
+        anyButtonListener?.Dispose();
     }
     
     private void Start()
     {
         reset();
+        if (Demo.active)
+        {
+            DemoText.SetActive(true);
+        }
+        else
+        {
+            DemoText.SetActive(false);
+        }
     }
 
     private void Update()
     {
+        if (Demo.active) return;
         if (!alive || player.getWin())
         {
             if (menuAction.action.WasPressedThisFrame())
@@ -201,6 +217,10 @@ public class GameManager : MonoBehaviour
         StartCoroutine(FadeAlpha(winRestartText.GetComponent<TextMeshProUGUI>(), 0f, 1f, 2f));
     }
 
-
+    public IEnumerator ReturnToMenuAfter(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        SceneManager.LoadScene("Menu");
+    }
 
 }

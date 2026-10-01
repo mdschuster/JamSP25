@@ -42,6 +42,7 @@ public class Player : MonoBehaviour
     public float speedMultiplier;
     public float multiplierAmount;
     public bool disableControls;
+    public SteerSource steerSource;
     
     [Header("Effects")]
     public GameObject deathEffect;
@@ -85,7 +86,8 @@ public class Player : MonoBehaviour
         
         if (death || disableControls) return;
         //float sideInput = Input.GetAxisRaw("Horizontal");
-        float sideInput = moveAction.action.ReadValue<Vector2>().x;
+        //float sideInput = moveAction.action.ReadValue<Vector2>().x;
+        float sideInput = steerSource.GetSteer();
         movement.x=sideInput*sideSpeed*speedMultiplier;
         movement.y = 0.0f;
         movement.z = forwardSpeed*speedMultiplier;
@@ -135,6 +137,15 @@ public class Player : MonoBehaviour
             this.graphic.SetActive(false);
             this.GetComponent<Collider>().enabled = false;
             GameManager.Instance().playerDeath();
+            if (steerSource.record)
+            {
+                steerSource.Save();
+            }
+            if (Demo.active) 
+                StartCoroutine(GameManager.Instance().ReturnToMenuAfter(6f));
+            else
+                StartCoroutine(GameManager.Instance().ReturnToMenuAfter(30f));
+
         }
     }
 
@@ -172,10 +183,21 @@ public class Player : MonoBehaviour
         {
             c.enabled = false;
         }
+
+        if (steerSource.record)
+        {
+            steerSource.Save();
+        }
+        if (Demo.active) 
+            StartCoroutine(GameManager.Instance().ReturnToMenuAfter(6f));
+        else
+            StartCoroutine(GameManager.Instance().ReturnToMenuAfter(30f));
+
     }
 
     public bool getWin()
     {
         return didWin;
     }
+    
 }

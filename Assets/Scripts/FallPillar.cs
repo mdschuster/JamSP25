@@ -35,7 +35,8 @@ public class FallPillar : MonoBehaviour
     {
         falling = false;
         totalRotation = 0;
-        int number = Random.Range(0, 2);
+        int pillarKey = Mathf.RoundToInt(transform.position.x * 10) * 7919 + Mathf.RoundToInt(transform.position.z * 10);
+        int number = new System.Random(Demo.seed + pillarKey).Next(0, 2);
         if(number == 0)
             fallPillar.transform.rotation = Quaternion.Euler(-90, 90, 0);
         else

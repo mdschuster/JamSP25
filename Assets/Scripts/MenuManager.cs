@@ -25,6 +25,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Utilities;
 
 public class MenuManager : MonoBehaviour
 {
@@ -35,14 +36,25 @@ public class MenuManager : MonoBehaviour
     [Header("Input")]
     public InputActionReference playAction;
     
+    [Header("Demo Mode")]
+    public float idleSeconds = 20f;
+    private float idleTimer;
+    private System.IDisposable anyButtonListener;
+    
+    
     private void OnEnable()
     {
+        Demo.active = false;   // arriving at the menu always means "not in a demo"
+        idleTimer = 0f;
+        anyButtonListener = InputSystem.onAnyButtonPress.Call(_ => idleTimer = 0f);
         playAction.action.Enable();
     }
 
     private void OnDisable()
     {
         playAction.action.Disable();
+        anyButtonListener?.Dispose();   // stop listening when the scene unloads
+
     }
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -56,6 +68,12 @@ public class MenuManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        idleTimer += Time.deltaTime;
+        if (idleTimer >= idleSeconds)
+        {
+            Demo.active = true;
+            SceneManager.LoadScene("MainGame");
+        }
         if (playAction.action.WasPressedThisFrame())
         {
             SceneManager.LoadScene("MainGame");
