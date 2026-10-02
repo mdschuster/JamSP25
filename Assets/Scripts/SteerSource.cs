@@ -26,7 +26,6 @@ public class SteerSource : MonoBehaviour
         //Demo.active = true;
         if (Demo.active && recordings.Length > 0)
         {
-            Debug.Log("Playing back demo run");
             TextAsset run = recordings[Random.Range(0, recordings.Length)];
             string[] lines = run.text.Split('\n');
 

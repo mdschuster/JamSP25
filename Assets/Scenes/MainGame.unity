@@ -44680,7 +44680,12 @@ MonoBehaviour:
   moveAction: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   record: 0
   recordings:
+  - {fileID: 4900000, guid: ff7e3b2807e05462dbcbf543def8f897, type: 3}
   - {fileID: 4900000, guid: 71d910e23cb86455a9e0d35685817a55, type: 3}
+  - {fileID: 4900000, guid: f34adaa3257ac4903a52bf874799087f, type: 3}
+  - {fileID: 4900000, guid: a114962ecf9054892a099bb0e90f0002, type: 3}
+  - {fileID: 4900000, guid: 20f2352ed316f409b9850dccfb79fed2, type: 3}
+  - {fileID: 4900000, guid: bfa7432563a1e4af3908ba28821ea4dd, type: 3}
 --- !u!4 &207031255 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8596703807912884895, guid: bcab6ba550c5e455fbdd30765a2d7eb5, type: 3}
@@ -142539,8 +142544,6 @@ GameObject:
   - component: {fileID: 638263037}
   - component: {fileID: 638263039}
   - component: {fileID: 638263038}
-  - component: {fileID: 638263041}
-  - component: {fileID: 638263040}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -142685,48 +142688,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.51625437, y: 0.25, z: 0.38855982}
   m_Center: {x: 0.41312715, y: -0.07, z: -0.9657202}
---- !u!65 &638263040
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 638263033}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Size: {x: 0.21, y: 0.22, z: 0.72}
-  m_Center: {x: 0.7, y: -0.2, z: -1.67}
---- !u!65 &638263041
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 638263033}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Size: {x: 0.21, y: 0.22, z: 0.72}
-  m_Center: {x: -0.68, y: -0.2, z: -1.67}
 --- !u!1001 &638285605
 PrefabInstance:
   m_ObjectHideFlags: 0
